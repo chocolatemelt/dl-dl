@@ -73,7 +73,7 @@ def download_images(file_name, new_content=[]):
     }
 
     chara = {
-        "{}_{:02d}_r0{}.png".format(
+        "{}_0{}_r0{}.png".format(
             d["title"]["Id"], int(d["title"]["VariationId"]), int(d["title"]["Rarity"])
         ): d["title"]["FullName"]
         for d in get_data(tables="Adventurers", fields="Id,VariationId,FullName,Rarity")
