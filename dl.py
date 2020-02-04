@@ -48,7 +48,10 @@ def get_data(**kwargs):
 
 def download_image(fn, v, path):
     if not path.is_file():
-        urllib.request.urlretrieve(v, path)
+        zero2 = v.replace("_01", "_02")
+        try: urllib.request.urlretrieve(zero2)
+        except urllib.error.URLError as e:
+            urllib.request.urlretrieve(v, path)
         print("download image: {}".format(fn))
     else:
         sys.stdout.write('.')
@@ -91,7 +94,7 @@ def download_images(file_name, new_content=[]):
         for d in get_data(tables="Dragons", fields="BaseId,VariationId,FullName")
     }
     wp = {
-        "{}_02.png".format(d["title"]["BaseId"]): d["title"]["Name"]
+        "{}_01.png".format(d["title"]["BaseId"]): d["title"]["Name"]
         for d in get_data(tables="Wyrmprints", fields="BaseId,Name")
     }
     w = {
