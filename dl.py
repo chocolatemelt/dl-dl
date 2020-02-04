@@ -46,6 +46,12 @@ def get_data(**kwargs):
             raise Exception(url)
     return data
 
+def download_image(fn, v, path):
+    if not path.is_file():
+        urllib.request.urlretrieve(v, path)
+        print("download image: {}".format(fn))
+    else:
+        sys.stdout.write('.')
 
 def download_images(file_name, new_content=[]):
     pattern = {
@@ -132,28 +138,22 @@ def download_images(file_name, new_content=[]):
             if fn in chara:
                 fn = snakey(chara[k]) + ".png"
                 path = Path(__file__).resolve().parent / "img/{}/{}".format("adv", fn)
-                urllib.request.urlretrieve(v, path)
-                print("download image: {}".format(fn))
+                download_image(fn, v, path)
         if file_name == "dragon":
             if fn in drag:
                 fn = snakey(drag[k]) + ".png"
                 path = Path(__file__).resolve().parent / "img/{}/{}".format("d", fn)
-                urllib.request.urlretrieve(v, path)
-                print("download image: {}".format(fn))
+                download_image(fn, v, path)
         if file_name == "weapon":
             if fn in w:
                 fn = snakey(w[k]) + ".png"
                 path = Path(__file__).resolve().parent / "img/{}/{}".format("w", fn)
-                urllib.request.urlretrieve(v, path)
-                print("download image: {}".format(fn))
+                download_image(fn, v, path)
         if file_name == "wyrmprint":
             if fn in wp:
-                print(fn, wp[k])
                 fn = snakey(wp[k]) + ".png"
                 path = Path(__file__).resolve().parent / "img/{}/{}".format("wp", fn)
-                urllib.request.urlretrieve(v, path)
-                print("download image: {}".format(fn))
-
+                download_image(fn, v, path)
 
 if __name__ == "__main__":
     download_images(sys.argv[1])
